@@ -158,14 +158,3 @@ do
                 echo "No need to wake NAS"
         fi
 done
-
-####################################################################
-# Change Notes:
-#
-# 2012-12-07:
-#	- Script creation
-# 2012-12-08:
-#     - Do not poll the following devices if one is online
-# 2012-12-10:
-#	- Do not wake NAS during curfew
-####################################################################
