@@ -68,9 +68,6 @@ isInTimeSlot() {
 	local endTimestamp
 
 	currentTimestamp=`$DATE +"%s"`
-	#startTimestamp=`$DATE -j -f "%H:%M:%S" "$startTime:00" +"%s"`
-	#endTimestamp=`$DATE -j -f "%H:%M:%S" "$endTime:00" +"%s"`
-
 	startTimestamp=`$DATE -d "$startTime:00" +"%s"`
 	endTimestamp=`$DATE -d "$endTime:00" +"%s"`
 
@@ -81,8 +78,6 @@ isInTimeSlot() {
 			startTimestamp=`expr $startTimestamp - $nbSecInDay`
 		fi
 	fi
-
-	echo "`$DATE +"%H:%M:%S"` is not in timeslot [ $startTime , $endTime ]"
 
 	if [ "$currentTimestamp" -gt "$startTimestamp" -a "$currentTimestamp" -le "$endTimestamp" ]; then
 		return 0
