@@ -57,8 +57,8 @@ isInTimeSlot() {
 
 	local startTime
 	local endTime
-        startTime="$1"
-        endTime="$2"
+	startTime="$1"
+	endTime="$2"
 
 	local nbSecInDay
 	nbSecInDay="86400"
@@ -91,65 +91,65 @@ isInTimeSlot() {
 while true
 do
 
-        # Wait until next poll
-        sleep $POLL_INTERVAL
+	# Wait until next poll
+	sleep $POLL_INTERVAL
 
 	echo "---------------------"
 
-        # Check if the NAS is already awake
-        if ping -c 1 -t 1 $NAS_IP > /dev/null; then
-                echo "NAS is already ONLINE"
-                continue
-        else
-                echo "NAS is OFFLINE"
-        fi
+	# Check if the NAS is already awake
+	if ping -c 1 -t 1 $NAS_IP > /dev/null; then
+		echo "NAS is already ONLINE"
+		continue
+	else
+		echo "NAS is OFFLINE"
+	fi
 
-        # Initialize variable stating if NAS shall be waken
-        wake_nas="0"
+	# Initialize variable stating if NAS shall be waken
+	wake_nas="0"
 
-        # Check if any device requiring the NAS to be awake is online
+	# Check if any device requiring the NAS to be awake is online
 
 	# Only wake NAS if we are not within the curfew timeslot        
 	isInTimeSlot "$BEG_POLL_CURFEW" "$END_POLL_CURFEW"
 	inTimeSlot=$?
 	if [ $CHECK_CURFEW_ACTIVE -eq "0" -o $inTimeSlot -eq "1" ]; then
 		if [ $CHECK_ONLINE -eq "1" ]; then
-        	       	for ip_addr in $IP_ADDRS; do
-                	       	if $PING -c 1 -t 1 $ip_addr > /dev/null ; then
-                        	       	wake_nas="1"
-                                	echo "Online device detected: $ip_addr"
-	       	                        break # Checking the other devices skipped to save time
-	               	        fi
-        	        done
-       		fi
+			for ip_addr in $IP_ADDRS; do
+				if $PING -c 1 -t 1 $ip_addr > /dev/null ; then
+					wake_nas="1"
+					echo "Online device detected: $ip_addr"
+					break # Checking the other devices skipped to save time
+				fi
+			done
+		fi
 	else
 		echo "Within curfew timeslot"
-       	fi
+	fi
 
-        # Check if it is time to wake NAS
+	# Check if it is time to wake NAS
 	if [ $CHECK_WAKE_TIME -eq "1" ]; then
 		# Record current time
-        	current_timestamp=`$DATE +%s`
+		current_timestamp=`$DATE +%s`
 
-                # Check if wake time is reached
-       	        if [ $next_wake_timestamp -le $current_timestamp ]; then
-               	        wake_nas="1"
-                       	echo "Time to wake up !!!"
-                fi
+		# Check if wake time is reached
+		if [ $next_wake_timestamp -le $current_timestamp ]; then
+			wake_nas="1"
+			echo "Time to wake up !!!"
+		fi
 
-                # Compute next wake timestamp
-       	        next_wake_timestamp=`$DATE -d "$WAKE_TIME" +%s`
-               	# If the next wake time is tomorrow
-                if [ $next_wake_timestamp -le $current_timestamp ]; then
-       	                next_wake_timestamp=`expr $next_wake_timestamp + $NB_SEC_IN_DAY`
-                fi
-       	fi
+		# Compute next wake timestamp
+		next_wake_timestamp=`$DATE -d "$WAKE_TIME" +%s`
+		# If the next wake time is tomorrow
+		if [ $next_wake_timestamp -le $current_timestamp ]; then
+			next_wake_timestamp=`expr $next_wake_timestamp + $NB_SEC_IN_DAY`
+		fi
+	fi
 
-        # Wake NAS if required
-        if [ "$wake_nas" -eq "1" ]; then
-                echo "Waking NAS"
-                $WOL -i $BROADCAST_IP -p $WOL_PORT $NAS_MAC
-        else
-                echo "No need to wake NAS"
-        fi
+	# Wake NAS if required
+	if [ "$wake_nas" -eq "1" ]; then
+		echo "Waking NAS"
+		$WOL -i $BROADCAST_IP -p $WOL_PORT $NAS_MAC
+	else
+		echo "No need to wake NAS"
+	fi
 done
