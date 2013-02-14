@@ -82,7 +82,7 @@ isInTimeSlot() {
 		fi
 	fi
 
-	echo "`$DATE +"%H:%M:%S` is not in timeslot [ $startTime , $endTime ]"
+	echo "`$DATE +"%H:%M:%S"` is not in timeslot [ $startTime , $endTime ]"
 
 	if [ "$currentTimestamp" -gt "$startTimestamp" -a "$currentTimestamp" -le "$endTimestamp" ]; then
 		return 0
