@@ -27,9 +27,11 @@ PREREQUISITE
 INSTALL
 =======
 
-- TODO
+- Copy the content of the https://github.com/fritz-hh/autowake_NAS/blob/master/wake_NAS.sh file into the Commands textfield in the DD-WRT section Adminstration|Commands (see below).
+- Press the "Save Startup" button.
+- Restart your router
 
-![Startup Commands](https://github.com/fritz-hh/autowake_NAS/blob/master/screenshots/dd-wrt_commands.PNG)
+![Startup Commands](https://github.com/fritz-hh/autowake_NAS/raw/master/screenshots/dd-wrt_commands.PNG)
 
 DISCLAIMER
 ==========
