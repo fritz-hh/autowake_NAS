@@ -29,6 +29,8 @@ INSTALL
 
 - TODO
 
+![Startup Commands](https://github.com/fritz-hh/autowake_NAS/blob/master/screenshots/dd-wrt_commands.PNG)
+
 DISCLAIMER
 ==========
 
