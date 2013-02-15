@@ -1,4 +1,22 @@
 #!/bin/sh
+#############################################################################
+# Script aimed at waking a (NAS) computer according to various conditions.
+# - If at least one of a configurable set of devices is online
+# - Unless a curfew timeslot is defined and the current time is
+#   within this slot
+# - Every day at configurable time
+#
+# This script was developped to be executed on a DD-WRT router.
+# The script shall be launched at router startup 
+#
+# Configuration of the script: 
+# - This script does not accept any argument when calling it
+# - The behaviour of the script can be configured by changing the value
+#   of the variables in capital letters below
+#
+# Author: fritz from NAS4Free forum
+#
+#############################################################################
 
 # script configuration
 POLL_INTERVAL=5                         # number of seconds to wait between to cycles
@@ -9,27 +27,32 @@ NAS_MAC="6C:62:6D:79:CA:D0"             # MAC address of the NAS to wake
 WOL_PORT="9"                            # Usually 7 or 9
 
 # IP addresses of the devices to be polled, separated by a space character)
-# (Attention: IP addresses shall be static!)
+# (Attention: The devices to be polled shall have static IP addresses!)
 # The script will ensure that the NAS is awake, whenever one of the
 # devices having the latter IP addresses is online
-# PC2, PC3 WLAN, PC3 LAN
+#
+# The devices will be polled only if CHECK_ONLINE equals 1
 CHECK_ONLINE="1"
 IP_ADDRS="192.168.1.102 192.168.1.103 192.168.1.104"
+
+# Curfew:
+# Time of the day at which the NAS shall not be woken up
+# (even if some of the above mentionned devices are online)
+#
+# The curfew time exists if CHECK_CURFEW_ACTIVE equals 1
+CHECK_CURFEW_ACTIVE="1"
+BEG_POLL_CURFEW="22:00"
+END_POLL_CURFEW="7:00"
 
 # Time of the day at which the NAS shall always by awake
 # (even if none of the above mentionned devices are online)
 # This may be required in order to ensure that the NAS performs
 # some administrative tasks (e.g. backup)
 # format: "hh:mm"
+#
+# Wake time is taken into account if CHECK_WAKE_TIME equals 1
 CHECK_WAKE_TIME="1"
 WAKE_TIME="11:50"
-
-# Curfew:
-# Time of the day at which the NAS shall never be waken up
-# (even if some of the above mentionned devices are online)
-CHECK_CURFEW_ACTIVE="1"
-BEG_POLL_CURFEW="22:00"
-END_POLL_CURFEW="7:00"
 
 # Used utilities
 DATE="/bin/date"
