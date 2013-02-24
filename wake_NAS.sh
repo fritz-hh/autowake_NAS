@@ -23,7 +23,7 @@ POLL_INTERVAL=5                         # number of seconds to wait between to c
 
 BROADCAST_IP="192.168.1.255"            # Broadcast IP address of the network
 NAS_IP="192.168.1.101"                  # IP address of the NAS to wake
-NAS_MAC="6C:62:6D:79:CA:D0"             # MAC address of the NAS to wake
+NAS_MAC="XX:XX:XX:XX:XX:XX"             # MAC address of the NAS to wake
 WOL_PORT="9"                            # Usually 7 or 9
 
 # IP addresses of the devices to be polled, separated by a space character)
