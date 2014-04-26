@@ -96,9 +96,9 @@ isInTimeSlot() {
 
 	if [ "$endTimestamp" -le "$startTimestamp" ]; then
 		if [ "$currentTimestamp" -gt "$startTimestamp" ]; then
-			endTimestamp=`expr $endTimestamp + $nbSecInDay`
+			endTimestamp=$(($endTimestamp + $nbSecInDay))
 		else
-			startTimestamp=`expr $startTimestamp - $nbSecInDay`
+			startTimestamp=$(($startTimestamp - $nbSecInDay))
 		fi
 	fi
 
@@ -164,7 +164,7 @@ do
 		next_wake_timestamp=`$DATE -d "$WAKE_TIME" +%s`
 		# If the next wake time is tomorrow
 		if [ $next_wake_timestamp -le $current_timestamp ]; then
-			next_wake_timestamp=`expr $next_wake_timestamp + $NB_SEC_IN_DAY`
+			next_wake_timestamp=$(($next_wake_timestamp + $NB_SEC_IN_DAY))
 		fi
 	fi
 
