@@ -37,7 +37,7 @@ IP_ADDRS="192.168.1.102 192.168.1.103 192.168.1.104"
 
 # Curfew:
 # Time of the day at which the NAS shall not be woken up
-# (even if some of the above mentionned devices are online)
+# (even if some of the above mentioned devices are online)
 #
 # The curfew time exists if CHECK_CURFEW_ACTIVE equals 1
 CHECK_CURFEW_ACTIVE="1"
@@ -45,7 +45,7 @@ BEG_POLL_CURFEW="22:00"
 END_POLL_CURFEW="7:00"
 
 # Time of the day at which the NAS shall always by awake
-# (even if none of the above mentionned devices are online)
+# (even if none of the above mentioned devices are online)
 # This may be required in order to ensure that the NAS performs
 # some administrative tasks (e.g. backup)
 # format: "hh:mm"
